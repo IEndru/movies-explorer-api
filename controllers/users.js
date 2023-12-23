@@ -97,7 +97,6 @@ const updateUser = async (req, res, next) => {
 const getUserInfo = async (req, res, next) => {
   try {
     const userId = req.user._id;
-    console.log(userId);
     const user = await User.findById(userId);
     if (!user) {
       throw new NotFoundError('Пользователь не найден');
@@ -116,5 +115,5 @@ module.exports = {
   createUser,
   updateUser,
   login,
-  getUserInfo
+  getUserInfo,
 };

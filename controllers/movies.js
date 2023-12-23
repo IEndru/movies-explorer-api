@@ -6,8 +6,8 @@ const NotFoundError = require('../errors/NotFoundError');
 const getMovie = async (req, res, next) => {
   const owner = req.user._id;
   try {
-    const movies = await Movie.find({owner});
-    if ( movies.length === 0 || !movies) {
+    const movies = await Movie.find({ owner });
+    if (movies.length === 0 || !movies) {
       res.send('Фильмы не найдены.');
     }
     res.send(movies);
@@ -66,7 +66,7 @@ const createMovie = async (req, res, next) => {
       movieId,
       nameRU,
       nameEN,
-     });
+    });
     res.status(201).send(movie);
   } catch (err) {
     if (err.name === 'ValidationError' || err.name === 'CastError') {
