@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {isEmail} = require("validator");
+const {isURL} = require("validator");
 
 const movieSchema = new mongoose.Schema(
   {
@@ -28,10 +28,10 @@ const movieSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator(v) {
-          return isEmail(v);
+          return isURL(v);
         },
         message(props) {
-          return `${props.value} Невалидный формат email!`;
+          return `${props.value} Невалидный формат URL!`;
         },
       },
     },
@@ -40,10 +40,10 @@ const movieSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator(v) {
-          return isEmail(v);
+          return isURL(v);
         },
         message(props) {
-          return `${props.value} Невалидный формат email!`;
+          return `${props.value} Невалидный формат URL!`;
         },
       },
     },
@@ -52,10 +52,10 @@ const movieSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator(v) {
-          return isEmail(v);
+          return isURL(v);
         },
         message(props) {
-          return `${props.value} Невалидный формат email!`;
+          return `${props.value} Невалидный формат URL!`;
         },
       },
     },

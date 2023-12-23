@@ -1,4 +1,4 @@
-const { Movie: Movies } = require('../models/movie');
+const { Movie } = require('../models/movie');
 const ValidationError = require('../errors/ValidationError');
 const ForbiddenError = require('../errors/ForbiddenError');
 const NotFoundError = require('../errors/NotFoundError');
@@ -6,7 +6,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const getMovie = async (req, res, next) => {
   const owner = req.user._id;
   try {
-    const movies = await Movies.find({owner});
+    const movies = await Movie.find({owner});
     if ( movies.length === 0 || !movies) {
       res.send('Фильмы не найдены.');
     }
@@ -18,13 +18,13 @@ const getMovie = async (req, res, next) => {
 
 const deleteMovieById = async (req, res, next) => {
   try {
-    const movie = await Movies.findById(req.params.movieId).orFail(() => {
+    const movie = await Movie.findById(req.params.movieId).orFail(() => {
       throw new NotFoundError('Фильм с указанным id не найден');
     });
     if (String(movie.owner) !== String(req.user._id)) {
       throw new ForbiddenError('Запрещено удалять чужой фильм');
     }
-    const deletedMovie = await Movies.deleteOne(movie);
+    const deletedMovie = await Movie.deleteOne(movie);
     return res.send({ movie: deletedMovie });
   } catch (err) {
     if (err.name === 'ValidationError' || err.name === 'CastError') {
@@ -53,7 +53,7 @@ const createMovie = async (req, res, next) => {
       nameEN,
     } = req.body;
     const ownerId = req.user._id;
-    const movie = await Movies.create({
+    const movie = await Movie.create({
       country,
       director,
       duration,
